@@ -1,0 +1,1 @@
+Camada de domínio, onde acontecem as integrações direto com o banco de dados
