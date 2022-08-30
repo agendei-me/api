@@ -38,4 +38,4 @@ def change_agent(agent_id: str, agent: AgentBase, session: Session = Depends(get
 @router.delete("/{agent_id}")
 def remove_agent(agent_id: str, session: Session = Depends(get_session)):
     agent = delete_agent(agent_id=agent_id, session=session)
-    return f'success: {agent}'
+    return "{'success': {}}".format(agent)

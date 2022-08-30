@@ -9,4 +9,4 @@ class AgentBase(SQLModel):
 class Agent(AgentBase, table=True):
     __tablename__ = 'agents'
 
-    id: str = Field(primary_key=True, max_length=50)
+    id: str = Field(primary_key=True, max_length=50, nullable=False)
