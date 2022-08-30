@@ -5,6 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 
+from sqlmodel import SQLModel
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -16,8 +17,20 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from app.models import agent
-target_metadata = agent.SQLModel.metadata
+from app.models import *
+
+target_metadata = SQLModel.metadata
+# target_metadata = [agent.SQLModel.metadata,
+#                    customer.SQLModel.metadata,
+#                    place.SQLModel.metadata,
+#                    availability_group.SQLModel.metadata,
+#                    service.SQLModel.metadata,
+#                    availability_group_service.SQLModel.metadata,
+#                    availability.SQLModel.metadata,
+#                    timeslot.SQLModel.metadata,
+#                    appointment.SQLModel.metadata,
+#                    client.SQLModel.metadata
+#                    ]
 #target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
