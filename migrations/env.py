@@ -20,17 +20,6 @@ if config.config_file_name is not None:
 from app.models import agent, customer, place, availability_group, service, availability_group_service, availability, timeslot, appointment, client
 
 target_metadata = SQLModel.metadata
-# target_metadata = [agent.SQLModel.metadata,
-#                    customer.SQLModel.metadata,
-#                    place.SQLModel.metadata,
-#                    availability_group.SQLModel.metadata,
-#                    service.SQLModel.metadata,
-#                    availability_group_service.SQLModel.metadata,
-#                    availability.SQLModel.metadata,
-#                    timeslot.SQLModel.metadata,
-#                    appointment.SQLModel.metadata,
-#                    client.SQLModel.metadata
-#                    ]
 #target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
