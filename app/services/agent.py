@@ -27,8 +27,7 @@ def get_agents(session: Session, skip: int = 0, limit: int = 100) -> list[Agent]
 
 def insert_agent(session: Session, agent: AgentBase) -> Agent:
     db_agent = Agent(id=str(uuid4()),
-                     name=agent.name,
-                     is_active=agent.is_active)
+                     name=agent.name)
     session.add(db_agent)
     session.commit()
     session.refresh(db_agent)

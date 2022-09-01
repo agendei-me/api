@@ -17,7 +17,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from app.models import *
+from app.models import agent, customer, place, availability_group, service, availability_group_service, availability, timeslot, appointment, client
 
 target_metadata = SQLModel.metadata
 # target_metadata = [agent.SQLModel.metadata,
