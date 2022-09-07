@@ -1,3 +1,5 @@
 venv
 .idea
 __pycache__/
+git-token.txt
+.env

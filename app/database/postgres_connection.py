@@ -1,6 +1,7 @@
 from sqlmodel import Session, create_engine
+import os
 
-POSTGRES_DATABASE_URL = "postgresql://postgres:caio123@localhost/agendei"
+POSTGRES_DATABASE_URL = os.getenv("DB_URL")
 engine = create_engine(POSTGRES_DATABASE_URL)
 
 

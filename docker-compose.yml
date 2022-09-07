@@ -1,5 +1,10 @@
-version: "3.9"  # optional since v1.27.0
+version: "3.9"
 services:
   api:
     build: .
+    image: api
+    command: bash -c "alembic upgrade heads && python main.py"
+    ports:
+      - "8001:8001"
+    container_name: api
     network_mode: host

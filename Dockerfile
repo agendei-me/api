@@ -6,7 +6,10 @@ COPY ./requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-COPY ./main.py /code/
-COPY ./app /code/app
+EXPOSE 8001
 
-CMD ["python", "main.py"]
+#COPY ./main.py /code/
+COPY . /code/
+#COPY ./app /code/app
+
+#CMD ["python", "main.py"]
