@@ -1,15 +1,9 @@
 version: "3.9"
-services:
-  nginx:
-    image: nginx:1.17.6-alpine
-    container_name: nginx
-    ports:
-      - "8000:80"
 
+services:
   api:
     build: .
     image: api
-    command: bash -c "alembic upgrade heads && python main.py"
-    ports:
-      - "8001"
+    network_mode: host
     container_name: api
+    command: bash -c "alembic upgrade heads && python main.py"
