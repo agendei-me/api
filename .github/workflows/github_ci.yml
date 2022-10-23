@@ -19,6 +19,6 @@ jobs:
           script: |
             cd api
             git pull origin main
-            echo ${{ secrets.API_ENV_VARIABLES }}
+            rm .env
             echo ${{ secrets.API_ENV_VARIABLES }} >> .env
             sudo docker-compose up --build
