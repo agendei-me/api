@@ -1,5 +1,5 @@
-from sqlmodel import Field, SQLModel
-from typing import Optional
+from sqlmodel import Field, SQLModel, Relationship
+from typing import Optional, List
 from datetime import datetime
 
 

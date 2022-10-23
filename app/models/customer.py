@@ -1,4 +1,8 @@
-from sqlmodel import SQLModel, Field
+from typing import Optional
+
+from sqlmodel import SQLModel, Field, Relationship
+
+from app.models.agent import Agent
 
 
 class CustomerBase(SQLModel):
@@ -15,3 +19,6 @@ class Customer(CustomerBase, table=True):
 
     id: str = Field(primary_key=True, max_length=50, nullable=False)
 
+
+class CustomerWithAgent(Customer):
+    agent: Optional[Agent] = None
