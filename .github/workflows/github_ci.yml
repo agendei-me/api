@@ -19,6 +19,7 @@ jobs:
           script: |
             cd api
             git pull origin main
-            rm .env
+            rm .env credentials.json
+            echo ${{ secrets.GCP_CREDENTIALS }} >> credentials.json
             echo ${{ secrets.API_ENV_VARIABLES }} >> .env
             sudo docker-compose up --build
