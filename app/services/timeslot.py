@@ -27,22 +27,23 @@ def created_timeslots(events: list):
 
 
 def remove_created_timeslots(events_to_create: list, events_created: list):
-    if not events_to_create or not events_created:
+    if not events_to_create:
         return []
 
     interator: int = 0
     timeslots: list[dict] = []
 
     for event_created in events_created:
-        for event_to_create in events_to_create:
-            if not ((event_created >= event_to_create) and (event_created < (event_to_create + timedelta(hours=1)))):
-                interator += 1
-                timeslots.append({
-                    "id": interator,
-                    "dateTime": event_to_create,
-                    "date": event_to_create.date(),
-                    "time": event_to_create.time()
-                }
-                )
+        events_to_create.remove(event_created)
+
+    for event_to_create in events_to_create:
+        interator += 1
+        timeslots.append({
+            "id": interator,
+            "dateTime": event_to_create,
+            "date": event_to_create.date(),
+            "time": event_to_create.time()
+        }
+        )
 
     return timeslots
