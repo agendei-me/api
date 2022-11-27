@@ -11,7 +11,7 @@ router = APIRouter(prefix='/timeslots', )
 @router.post("/")
 async def create_event(timeslot: TimeslotBase):
     events = Events()
-    timestamp_from = datetime.strptime(timeslot.timestamp_from[:-6], '%Y-%m-%dT%H:%M:%S') + timedelta(hours=3)
+    timestamp_from = datetime.strptime(timeslot.timestamp_from, '%Y-%m-%dT%H:%M:%S') + timedelta(hours=3)
     event_created = events.create_event(timeslot.calendar_id, timeslot.summary, timeslot.description, timestamp_from)
     return event_created
 
