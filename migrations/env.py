@@ -21,7 +21,7 @@ if config.config_file_name is not None:
 from app.models import agent, customer, place, availability_group, service, availability_group_service, availability, timeslot, appointment, client
 
 target_metadata = SQLModel.metadata
-
+config.set_main_option("sqlalchemy.url", os.getenv("DB_URL"))
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
