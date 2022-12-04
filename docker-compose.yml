@@ -8,4 +8,4 @@ services:
     container_name: api
     env_file:
       - .env
-    command: bash -c "python load_env.py && alembic upgrade heads && python main.py"
+    command: bash -c "alembic upgrade heads && python main.py"
