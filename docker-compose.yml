@@ -6,4 +6,4 @@ services:
     image: api
     network_mode: host
     container_name: api
-    command: bash -c "alembic upgrade heads && python load_env.py && python main.py"
+    command: bash -c "python load_env.py && alembic upgrade heads && python main.py"
