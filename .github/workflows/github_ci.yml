@@ -12,7 +12,7 @@ jobs:
       - name: Deploying application
         uses: appleboy/ssh-action@master
         with:
-          host: @{{ secrets.AWS_EC2_HOST }}
+          host: ${{ secrets.AWS_EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.AWS_EC2_KEY_PERMISSION }}
           port: 22
