@@ -16,6 +16,7 @@ class Timeslot(SQLModel, table=True):
 
 class TimeslotBase(BaseModel):
     calendar_id: str
+    whatsapp_number: str
     summary: str
     description: str
     timestamp_from: str

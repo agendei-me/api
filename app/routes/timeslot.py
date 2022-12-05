@@ -1,18 +1,33 @@
-from fastapi import APIRouter
+import app
+from fastapi import Depends, APIRouter
+from app.models.client import Client
 from app.services.google.events import Events
 from datetime import datetime, timedelta
 from app.models.timeslot import TimeslotBase
+from app.models.appointment import Appointment
 from app.services.timeslot import created_timeslots, create_timeslots, remove_created_timeslots
+from app.services.client import get_client_by_whatsapp_number, insert_client
+from app.services.appointment import insert_appointment
+from app.database.postgres_connection import engine, get_session
+from sqlmodel import Session
 
+app.models.client.SQLModel.metadata.create_all(bind=engine)
 
 router = APIRouter(prefix='/timeslots', )
 
 
 @router.post("/")
-async def create_event(timeslot: TimeslotBase):
+async def create_event(timeslot: TimeslotBase, session: Session = Depends(get_session)):
     events = Events()
     timestamp_from = datetime.strptime(timeslot.timestamp_from, '%Y-%m-%dT%H:%M:%S') + timedelta(hours=3)
     event_created = events.create_event(timeslot.calendar_id, timeslot.summary, timeslot.description, timestamp_from)
+    client = get_client_by_whatsapp_number(session=session, whatsapp_number=timeslot.whatsapp_number)
+
+    if not client:
+        client = Client(name=timeslot.summary, whatsapp_number=timeslot.whatsapp_number)
+        client = insert_client(session=session, client=client)
+    appointment = Appointment(client_id=client.id, event_id=event_created)
+    insert_appointment(session=session, appointment=appointment)
     return event_created
 
 

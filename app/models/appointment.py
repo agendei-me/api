@@ -1,5 +1,6 @@
 from sqlmodel import Field, SQLModel
 from enum import Enum
+from datetime import datetime
 
 
 class States(str, Enum):
@@ -15,5 +16,6 @@ class Appointment(SQLModel, table=True):
     state: States = Field(default=States.scheduled, max_length=20)
     observation: str = Field(default=None, max_length=255)
 
-    timeslot_id: str = Field(nullable=False, foreign_key="timeslots.id")
+    event_id: str = Field(nullable=False)
     client_id: str = Field(nullable=False, foreign_key="clients.id")
+    created_at: datetime = Field(nullable=False, default=datetime.now())
