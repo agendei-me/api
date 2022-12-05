@@ -1,3 +1,4 @@
+import datetime
 from uuid import uuid4
 from app.models.appointment import Appointment, States
 
@@ -20,10 +21,23 @@ def get_appointments_by_client_id(session: Session, client_id: str) -> list[Appo
     return appointments
 
 
+def get_appointment_by_client_id(session: Session, client_id: str) -> Appointment:
+    appointment = session.exec(
+                select(
+                    Appointment
+                ).where(
+                 Appointment.client_id == client_id
+                ).order_by(Appointment.created_at.desc())
+    ).first()
+    return appointment
+
+
 def insert_appointment(session: Session, appointment: Appointment) -> Appointment:
     db_appointment = Appointment(id=str(uuid4()),
                                  event_id=appointment.event_id,
-                                 client_id=appointment.client_id
+                                 calendar_id=appointment.calendar_id,
+                                 client_id=appointment.client_id,
+                                 created_at=datetime.datetime.now(),
                                  )
     session.add(db_appointment)
     session.commit()

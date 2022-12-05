@@ -32,6 +32,27 @@ class Events:
 
     service = build('calendar', 'v3', credentials=creds)
 
+    def get_event(self, calendar_id: str, event_id: str):
+        try:
+            start = (datetime.datetime.now() + timedelta(hours=3)).isoformat() + 'Z'
+
+            event = self.service.events().get(calendarId=calendar_id,
+                                              eventId=event_id,
+                                              ).execute()
+            response = {
+                "calendar_id": event['organizer']['email'],
+                "event_id": event['id'],
+                "summary": event['summary'],
+                "description": event['description'],
+                "timestamp_from": event['start']['dateTime'],
+                "timestamp_to": event['end']['dateTime'],
+                "status": event['status']
+                }
+
+            return response
+        except HttpError as error:
+            print('An error occurred: %s' % error)
+
     def get_events(self, calendar_id: str, date: datetime.date = datetime.date.today()):
         try:
             start = (datetime.datetime.combine(date, datetime.datetime.min.time()) + timedelta(hours=3)).isoformat() + 'Z'
