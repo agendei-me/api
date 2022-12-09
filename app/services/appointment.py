@@ -55,3 +55,10 @@ def update_appointment(session: Session, appointment_id: str, state: States) -> 
         session.refresh(db_appointment)
     return db_appointment
 
+
+def delete_appointment(session: Session, appointment_id: str):
+    db_appointment = session.get(Appointment, appointment_id)
+    if db_appointment:
+        session.delete(db_appointment)
+        session.commit()
+    return True
