@@ -7,7 +7,7 @@ from app.models.timeslot import TimeslotBase
 from app.models.appointment import Appointment
 from app.services.timeslot import created_timeslots, create_timeslots, remove_created_timeslots
 from app.services.client import get_client_by_whatsapp_number, insert_client
-from app.services.appointment import insert_appointment, get_appointment_by_client_id
+from app.services.appointment import insert_appointment, get_appointment_by_client_id, delete_appointment
 from app.database.postgres_connection import engine, get_session
 from sqlmodel import Session
 
@@ -68,7 +68,11 @@ async def get_events(calendar_id: str, when: str):
 
 
 @router.delete("/")
-async def delete_events(calendar_id: str, event_id: str):
+async def delete_events(whatsapp_number: str,  session: Session = Depends(get_session)):
     events = Events()
-    deleted_event = events.cancel_event(calendar_id, event_id)
+    client = get_client_by_whatsapp_number(session=session, whatsapp_number=whatsapp_number)
+    appointment = get_appointment_by_client_id(session=session, client_id=client.id)
+    last_event = events.get_event(appointment.calendar_id, appointment.event_id)
+    deleted_event = events.cancel_event(last_event['calendar_id'], last_event['event_id'])
+    delete_appointment(session=session, appointment_id=appointment.id)
     return deleted_event
