@@ -1,8 +1,8 @@
 from sqlmodel import Session, create_engine
-import os
+from app.config import Settings
 
-POSTGRES_DATABASE_URL = os.getenv("DB_URL")
-engine = create_engine(POSTGRES_DATABASE_URL)
+settings = Settings()
+engine = create_engine(settings.db_url)
 
 
 def get_session():
